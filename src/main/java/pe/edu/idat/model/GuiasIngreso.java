@@ -26,7 +26,7 @@ public class GuiasIngreso {
 	private Date fecha;
 	
 	@Column
-	private Integer ruc;
+	private String ruc;
 	
 	@ManyToOne
 	@JoinColumn(name = "ruc", referencedColumnName = "ruc", insertable = false, updatable = false)

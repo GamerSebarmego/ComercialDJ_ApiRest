@@ -8,7 +8,7 @@ public interface ProveedorService {
 
 	public abstract void insert(Proveedor proveedor);
 	public abstract void update(Proveedor proveedor);
-	public abstract void delete(Integer ruc);
-	public abstract Proveedor findbyid(Integer ruc);
+	public abstract void delete(String ruc);
+	public abstract Proveedor findbyid(String ruc);
 	public abstract Collection<Proveedor> findall();
 }

@@ -13,7 +13,7 @@ import lombok.Data;
 public class Proveedor {
 
 	@Id
-	private Integer ruc;
+	private String ruc;
 	
 	@Column
 	private String representante;

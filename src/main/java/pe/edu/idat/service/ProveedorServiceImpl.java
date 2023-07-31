@@ -31,14 +31,14 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 	@Override
 	@Transactional
-	public void delete(Integer ruc) {
+	public void delete(String ruc) {
 		dao.deleteById(ruc);
 
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Proveedor findbyid(Integer ruc) {
+	public Proveedor findbyid(String ruc) {
 		return dao.findById(ruc).orElse(null);
 		
 	}

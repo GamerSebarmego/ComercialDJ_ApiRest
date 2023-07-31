@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import pe.edu.idat.model.Proveedor;
 
-public interface ProveedorDAO extends CrudRepository<Proveedor , Integer>{
+public interface ProveedorDAO extends CrudRepository<Proveedor , String>{
 
 }
