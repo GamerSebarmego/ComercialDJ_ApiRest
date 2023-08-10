@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.idat.model.DetallePedidoCompra;
+import pe.edu.idat.model.PedidoCompra;
 import pe.edu.idat.service.DetallePedidoCompraService;
 
 @RestController
@@ -42,7 +43,8 @@ public class DetallePedidoCompraRestController {
 	}
 	
 	@PostMapping("/agregar")
-	public ResponseEntity<?> agregar(@RequestBody DetallePedidoCompra detallePedidoCompra) {
+	public ResponseEntity<?> agregar(@RequestBody DetallePedidoCompra detallePedidoCompra, @RequestBody PedidoCompra pedidoCompra) {
+		
 		service.insert(detallePedidoCompra);
 		String mensaje = "El producto: " + detallePedidoCompra.getCodproducto() + " se ingreso correctamente al detalle de Compra";
 		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);

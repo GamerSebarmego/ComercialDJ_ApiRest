@@ -20,4 +20,5 @@ public class CategoriaProducto {
 	
 	@Column
 	private boolean estado;
+	
 }

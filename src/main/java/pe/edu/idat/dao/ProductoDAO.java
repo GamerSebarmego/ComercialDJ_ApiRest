@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import pe.edu.idat.model.Producto;
 
 public interface ProductoDAO extends CrudRepository<Producto, String>{
-
+	boolean existsByCodproducto(String codproducto);
 }

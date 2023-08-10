@@ -38,5 +38,4 @@ public class Cliente {
 	@Column
 	private Date fechaingreso;
 	
-	
 }
