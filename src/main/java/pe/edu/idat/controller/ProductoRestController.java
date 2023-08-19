@@ -36,16 +36,14 @@ public class ProductoRestController {
 	    if (ProductoDb != null) {
 	        return new ResponseEntity<>(ProductoDb, HttpStatus.OK);
 	    } else {
-	        String mensaje = "El producto con el codproducto " + codproducto + " no se encontró.";
-	        return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	    }
 	}
 	
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Producto producto) {
 		service.insert(producto);
-	    String mensajeDuplicacion = "El producto " + producto.getNombreproducto() + " a sido registrado correctamente";
-	    return new ResponseEntity<>(mensajeDuplicacion, HttpStatus.CREATED);
+	    return new ResponseEntity<Void>(HttpStatus.CREATED);
 
 	}
 
@@ -59,15 +57,14 @@ public class ProductoRestController {
 	    	ProductoDb.setDescripcion(newProducto.getDescripcion());
 	    	ProductoDb.setPreciocompra(newProducto.getPreciocompra());
 	    	ProductoDb.setPrecioventa(newProducto.getPrecioventa());
+	    	ProductoDb.setStock(newProducto.getStock());
 
 	        service.update(ProductoDb);
 
-	        String mensaje = "Producto con codproducto " + codproducto + " Editado Correctamente";
-	        return new ResponseEntity<>(mensaje, HttpStatus.OK);
+	        return new ResponseEntity<Void>(HttpStatus.OK);
 	    }
 
-	    String mensaje2 = "Producto con codproducto " + codproducto + " no Editado";
-	    return new ResponseEntity<>(mensaje2, HttpStatus.NOT_FOUND);
+	    return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/borrar/{codproducto}")
@@ -75,10 +72,9 @@ public class ProductoRestController {
 		Producto ProductoDb = service.findbyid(codproducto);
 	if(ProductoDb != null) {
 		service.delete(codproducto);
-		String mensaje = "Producto con codproducto " + codproducto + " Borrado Correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	String mensaje1 = "Error al Eliminar este producto: " + codproducto;
-	return new ResponseEntity<>(mensaje1, HttpStatus.NOT_FOUND);
+	return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
+	
 }

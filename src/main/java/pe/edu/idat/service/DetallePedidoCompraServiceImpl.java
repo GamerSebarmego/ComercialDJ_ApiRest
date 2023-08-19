@@ -1,6 +1,7 @@
 package pe.edu.idat.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,8 @@ public class DetallePedidoCompraServiceImpl implements DetallePedidoCompraServic
 
 	@Override
 	@Transactional(readOnly = true)
-	public DetallePedidoCompra findbyid(Integer iddetalle) {
-		return dao.findById(iddetalle).orElse(null);
+	public DetallePedidoCompra findbyid(Integer idpedido) {
+		return dao.findById(idpedido).orElse(null);
 		
 	}
 
@@ -49,5 +50,10 @@ public class DetallePedidoCompraServiceImpl implements DetallePedidoCompraServic
 		return (Collection<DetallePedidoCompra>) dao.findAll();
 		
 	}
-
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<DetallePedidoCompra> findByPedidoId(Integer idpedido) {
+	    return dao.findAllByPedidoId(idpedido);
+	}
 }

@@ -43,9 +43,21 @@ public class TrabajadorRestController {
 	
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Trabajador trabajador) {
-		service.insert(trabajador);
-		String mensaje = "El Trabajador: " + trabajador.getCodtrabajador() + " se ingreso correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+	    if (trabajador.getCodtrabajador() == null || trabajador.getCodtrabajador().isEmpty() ||
+	        trabajador.getNombretrabajador() == null || trabajador.getNombretrabajador().isEmpty() ||
+	        trabajador.getDireccion() == null || trabajador.getDireccion().isEmpty() ||
+	        trabajador.getTelefono() == null || trabajador.getTelefono() == 0 || 
+	        trabajador.getCorreo() == null || trabajador.getCorreo().isEmpty()) {
+	        return new ResponseEntity<>("Faltan Datos",HttpStatus.BAD_REQUEST);
+	    }
+
+	    Trabajador existentTrabajador = service.findbyid(trabajador.getCodtrabajador());
+	    if (existentTrabajador != null) {
+	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    }
+
+	    service.insert(trabajador);
+	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/editar/{codtrabajador}")
@@ -59,12 +71,10 @@ public class TrabajadorRestController {
 
 	        service.update(TrabajadorDb);
 
-	        String mensaje = "Trabajador " + codtrabajador + " Editado Correctamente";
-	        return new ResponseEntity<>(mensaje, HttpStatus.OK);
+	        return new ResponseEntity<Void>(HttpStatus.OK);
 	    }
 
-	    String mensaje2 = "Trabajador " + codtrabajador + " no Editado";
-	    return new ResponseEntity<>(mensaje2, HttpStatus.NOT_FOUND);
+	    return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/borrar/{codtrabajador}")
@@ -72,10 +82,8 @@ public class TrabajadorRestController {
 		Trabajador TrabajadorDb = service.findbyid(codtrabajador);
 	if(TrabajadorDb != null) {
 		service.delete(codtrabajador);
-		String mensaje = "Trabajador " + codtrabajador + " Borrado Correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	String mensaje1 = "Error al Eliminar este Trabajador: " + codtrabajador;
-	return new ResponseEntity<>(mensaje1, HttpStatus.NOT_FOUND);
+	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 	}
 }

@@ -43,10 +43,11 @@ public class PedidoCompraRestController {
 	
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody PedidoCompra pedidoCompra) {
-		service.insert(pedidoCompra);
-		String mensaje = "El pedido: " + pedidoCompra.getIdpedido() + " se creo de manera correcta";
-		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+	    service.insert(pedidoCompra);
+
+	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+
 	
 	@PutMapping("/editar/{idpedido}")
 	public ResponseEntity<?> editar(@PathVariable Integer idpedido, @RequestBody PedidoCompra newPedidoCompra) {

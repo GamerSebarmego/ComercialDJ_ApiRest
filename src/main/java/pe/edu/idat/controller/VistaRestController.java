@@ -1,6 +1,8 @@
 package pe.edu.idat.controller;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +26,15 @@ public class VistaRestController {
 	@Autowired
 	private VistaService service;
 	
-	@GetMapping("/listar")
-	public ResponseEntity<?> listar() {
-	Collection<Vista> itemsVistas = service.findall();
-	return new ResponseEntity<>(itemsVistas,HttpStatus.OK);
-	}
+    @GetMapping("/listar")
+    public ResponseEntity<?> listar() {
+        Collection<Vista> itemsVistas = service.findall();
+        
+        Map<String, Collection<Vista>> response = new HashMap<>();
+        response.put("products", itemsVistas);
+        
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 	
 	@GetMapping("/buscar/{codvista}")
 	public ResponseEntity<?> buscar(@PathVariable Integer codvista) {

@@ -34,6 +34,9 @@ public class Producto {
 	
 	@Column
 	private double precioventa;
+	
+	@Column
+	private Integer stock;
 
 	@ManyToOne
 	@JoinColumn(name = "idcategoria", referencedColumnName = "idcategoria", updatable = false, insertable = false)

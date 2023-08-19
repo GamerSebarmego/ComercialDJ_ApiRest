@@ -36,16 +36,14 @@ public class CategoriaProductoRestController {
 	    if (categoriaProductoDb != null) {
 	        return new ResponseEntity<>(categoriaProductoDb, HttpStatus.OK);
 	    } else {
-	        String mensaje = "La Categoria con el ID " + idcategoria + " no se encontró.";
-	        return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	    }
 	}
 	
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody CategoriaProducto categoriaProducto) {
 		service.insert(categoriaProducto);
-		String mensaje = "La Categoria: " + categoriaProducto.getIdcategoria() + " se ingreso correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/editar/{idcategoria}")
@@ -56,9 +54,7 @@ public class CategoriaProductoRestController {
 	        categoriaProductoDb.setEstado(newCategoriaProducto.isEstado());
 
 	        service.update(categoriaProductoDb);
-
-	        String mensaje = "Categoria " + idcategoria + " Editado Correctamente";
-	        return new ResponseEntity<>(mensaje, HttpStatus.OK);
+	        return new ResponseEntity<Void>(HttpStatus.OK);
 	    }
 
 	    String mensaje2 = "Categoria " + idcategoria + " no Editado";

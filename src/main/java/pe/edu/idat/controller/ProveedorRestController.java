@@ -36,16 +36,14 @@ public class ProveedorRestController {
 	    if (proveedorDb != null) {
 	        return new ResponseEntity<>(proveedorDb, HttpStatus.OK);
 	    } else {
-	        String mensaje = "El proveedor con Ruc " + ruc + " no se encontró.";
-	        return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	    }
 	}
 	
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Proveedor proveedor) {
 		service.insert(proveedor);
-		String mensaje = "El Proveedor: " + proveedor.getRazonsocial() + " se ingreso correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/editar/{ruc}")
@@ -60,24 +58,20 @@ public class ProveedorRestController {
 
 	        service.update(proveedorDb);
 
-	        String mensaje = "Proveedor " + ruc + " Editado Correctamente";
-	        return new ResponseEntity<>(mensaje, HttpStatus.OK);
+	        return new ResponseEntity<Void>(HttpStatus.OK);
 	    }
 
-	    String mensaje2 = "Proveedor " + ruc + " no Editado";
-	    return new ResponseEntity<>(mensaje2, HttpStatus.NOT_FOUND);
+	    return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 
-	@DeleteMapping("/borrar/{idcategoria}")
+	@DeleteMapping("/borrar/{ruc}")
 	public ResponseEntity<?> borrar(@PathVariable String ruc) {
 		Proveedor proveedorDb = service.findbyid(ruc);
 	if(proveedorDb != null) {
 		service.delete(ruc);
-		String mensaje = "Proveedor " + ruc + " Borrado Correctamente";
-		return new ResponseEntity<>(mensaje, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	String mensaje1 = "Error al Eliminar este Juego: " + ruc;
-	return new ResponseEntity<>(mensaje1, HttpStatus.NOT_FOUND);
+	return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 	
 }

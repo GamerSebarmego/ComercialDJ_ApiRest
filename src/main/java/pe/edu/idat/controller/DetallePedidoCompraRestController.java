@@ -1,6 +1,7 @@
 package pe.edu.idat.controller;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.idat.model.DetallePedidoCompra;
-import pe.edu.idat.model.PedidoCompra;
 import pe.edu.idat.service.DetallePedidoCompraService;
 
 @RestController
@@ -42,12 +42,22 @@ public class DetallePedidoCompraRestController {
 	    }
 	}
 	
+    @GetMapping("/listarpedido/{idpedido}")
+    public ResponseEntity<List<DetallePedidoCompra>> listarDetallesPorIdPedido(@PathVariable Integer idpedido) {
+        List<DetallePedidoCompra> detalles = service.findByPedidoId(idpedido);
+        
+        if (detalles.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        return new ResponseEntity<>(detalles, HttpStatus.OK);
+    }
+	
 	@PostMapping("/agregar")
-	public ResponseEntity<?> agregar(@RequestBody DetallePedidoCompra detallePedidoCompra, @RequestBody PedidoCompra pedidoCompra) {
+	public ResponseEntity<?> agregar(@RequestBody DetallePedidoCompra detallePedidoCompra) {
 		
 		service.insert(detallePedidoCompra);
-		String mensaje = "El producto: " + detallePedidoCompra.getCodproducto() + " se ingreso correctamente al detalle de Compra";
-		return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/editar/{iddetalle}")
